@@ -1,5 +1,8 @@
-/*.m3u8
+/*  
+  Cache-Control: public, max-age=0
+
+/hls/*.m3u8
   Content-Type: application/vnd.apple.mpegurl
 
-/*.ts
+/hls/*.ts
   Content-Type: video/mp2t
