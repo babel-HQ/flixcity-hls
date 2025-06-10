@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>🎬 FLIXCITY</title>
-  <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
-  <style>
-    body { background-color: #000; color: #fff; text-align: center; margin-top: 50px; }
-    video { width: 80%; height: auto; }
-  </style>
-</head>
-<body>
-  <h1>🎬 FLIXCITY</h1>
-  <video id="flixcity-player" class="video-js vjs-default-skin" controls preload="auto" crossorigin="anonymous">
-    <source src="master.m3u8" type="application/x-mpegURL">
-  </video>
-
-  <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-  <script>
-    var player = videojs('flixcity-player');
-    player.ready(function () {
-      console.log('Video.js ready');
-    });
-  </script>
-</body>
+  <head>
+    <title>HLS Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  </head>
+  <body>
+    <video id="video" controls width="640" height="360"></video>
+    <script>
+      const video = document.getElementById("video");
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource("video.m3u8");
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = "video.m3u8";
+        video.addEventListener("loadedmetadata", function () {
+          video.play();
+        });
+      }
+    </script>
+  </body>
 </html>
